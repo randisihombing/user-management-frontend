@@ -15,6 +15,9 @@ class _RegisterState extends State<Register> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  bool isShowPass = true;
+  bool isShowPass2 = true;
+
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _handleRegister(BuildContext context) async {
@@ -75,8 +78,21 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 8),
               TextFormField(
                 controller: passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isShowPass ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isShowPass = !isShowPass;
+                      });
+                    },
+                  ),
+                ),
+                obscureText: isShowPass,
                 validator: (value) =>
                 value!.length < 6 ? 'Minimal 6 karakter' : null,
               ),
@@ -84,8 +100,21 @@ class _RegisterState extends State<Register> {
               TextFormField(
                 controller: confirmPasswordController,
                 decoration:
-                const InputDecoration(labelText: 'Confirm Password'),
-                obscureText: true,
+                InputDecoration(
+                  labelText: 'Confirm Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isShowPass2 ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isShowPass2 = !isShowPass2;
+                      });
+                    },
+                  ),
+                ),
+                obscureText: isShowPass2,
                 validator: (value) => value != passwordController.text
                     ? 'Password tidak cocok'
                     : null,

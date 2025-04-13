@@ -87,7 +87,7 @@ class _UserDetailState extends State<UserDetail> {
                   backgroundImage: _image != null
                       ? FileImage(_image!)
                       : (widget.user['avatar'] != null
-                      ? NetworkImage("http://10.0.2.2:8000/storage/${widget.user['avatar']}")
+                      ? NetworkImage("https://user-management-backen-production.up.railway.app/storage/${widget.user['avatar']}")
                       : null) as ImageProvider?,
 
                   child: _image == null
