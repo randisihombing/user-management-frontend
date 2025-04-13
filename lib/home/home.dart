@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth/auth_provider.dart';
+import '../user/user_detail.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -172,9 +173,20 @@ class _HomeState extends State<Home> {
 
           final user = displayedUsers[index];
           return ListTile(
+            onTap: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => UserDetail(user: user),
+                ),
+              );
+              if (result == true) {
+                _loadUsers(); // Refresh from page 1
+              }
+            },
             leading: CircleAvatar(
               backgroundImage: user['avatar'] != null
-                  ? NetworkImage(user['avatar'])
+                  ? NetworkImage("https://user-management-backen-production.up.railway.app/storage/${user['avatar']}" )
                   : null,
               child: user['avatar'] == null
                   ? Text(user['name'][0].toUpperCase())
